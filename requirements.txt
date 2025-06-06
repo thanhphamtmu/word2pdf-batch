@@ -1,1 +1,5 @@
-docx2pdf
+colorama==0.4.6
+docx2pdf==0.1.8
+pillow==11.2.1
+pywin32==310
+tqdm==4.67.1
