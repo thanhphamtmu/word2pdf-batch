@@ -12,7 +12,7 @@ Một công cụ chuyển đổi hàng loạt các file `.doc` và `.docx` sang 
 ### 1. Clone hoặc tải mã nguồn
 
 ```bash
-git clone https://github.com/yourusername/word2pdf-batch.git
+git clone [https://github.com/yourusername/word2pdf-batch.git](https://github.com/thanhphamtmu/word2pdf-batch)
 cd word2pdf-batch
 ```
 
