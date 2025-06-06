@@ -1,11 +1,15 @@
-# 🧾 Word to PDF Converter
+# 🧾 Word & Image to PDF Converter
 
-Một công cụ chuyển đổi hàng loạt các file `.doc` và `.docx` sang định dạng PDF. Tự động chuẩn hóa tên file, sao chép vào thư mục tạm và xuất ra thư mục kết quả.
+Công cụ chuyển đổi hàng loạt:
+- Chuyển file Word (`.doc`, `.docx`) sang PDF
+- Gộp nhiều ảnh (`.png`, `.jpg`, `.jpeg`, `.bmp`, `.tiff`) thành một PDF
+- Tự động chuẩn hóa tên file, sao chép vào thư mục tạm và xuất ra thư mục kết quả
 
 ## 📦 Yêu cầu hệ thống
 
 - Python 3.8+
 - Windows (vì `docx2pdf` phụ thuộc vào Microsoft Word trên Windows)
+- Thư viện PIL (Python Imaging Library) để xử lý ảnh
 
 ## 📁 Cài đặt
 
@@ -24,17 +28,9 @@ python -m venv venv
 
 ### 3. Kích hoạt môi trường ảo
 
-- **Windows**:
-
-  ```bash
-  venv\Scripts\activate
-  ```
-
-- **macOS / Linux** _(⚠ Không hỗ trợ do phụ thuộc MS Word)_:
-
-  ```bash
-  source venv/bin/activate
-  ```
+```bash
+venv\Scripts\activate
+```
 
 ### 4. Cài đặt các phụ thuộc
 
@@ -45,7 +41,7 @@ pip install -r requirements.txt
 📄 _Tạo `requirements.txt` nếu chưa có:_
 
 ```bash
-pip install docx2pdf
+pip install docx2pdf Pillow
 pip freeze > requirements.txt
 ```
 
@@ -55,23 +51,35 @@ pip freeze > requirements.txt
 python word2pdf-batch.py
 ```
 
-Sau đó nhập đường dẫn thư mục chứa các file `.doc` hoặc `.docx` cần chuyển đổi.
+Nhập đường dẫn thư mục chứa các file cần chuyển đổi (Word và/hoặc ảnh).
+
+### Quy tắc gộp ảnh
+
+- Các ảnh có cùng tiền tố sẽ được gộp vào một file PDF
+- Tiền tố được xác định bởi:
+  - Phần trước dấu `-` và số (vd: `scan-1.jpg`, `scan-2.jpg` → `scan.pdf`)
+  - Phần trước từ "copy" (không phân biệt hoa thường)
+  - Phần trước dấu `(`, `_` hoặc `-`
+  - Tên file không có các ký tự trên
 
 ### Ví dụ
 
 ```bash
-📁 Nhập đường dẫn thư mục chứa file Word: D:\Tài liệu\Báo cáo
+📁 Nhập đường dẫn thư mục chứa file: D:\Tài liệu\Báo cáo
 ```
 
-- Các file sẽ được chuẩn hóa tên và sao chép vào thư mục `converted_tmp`.
-- Kết quả PDF được lưu tại: `converted_pdf`.
+Kết quả:
+- File gốc không bị thay đổi
+- File trung gian được lưu tại: `converted_tmp`
+- File PDF được lưu tại: `converted_pdf`
 
 ## 🔐 Ghi chú
 
-- Bỏ qua các file tạm bắt đầu bằng `~$`.
-- Tên file sẽ được chuyển sang định dạng ASCII an toàn cho hệ thống.
-- Thư mục gốc không bị thay đổi.
+- Bỏ qua các file tạm bắt đầu bằng `~$`
+- Tên file được chuyển sang định dạng ASCII an toàn
+- Tự động nhóm và gộp các ảnh có cùng tiền tố
+- Hỗ trợ các định dạng ảnh: PNG, JPG, JPEG, BMP, TIFF
 
 ## 🧹 Dọn dẹp
 
-Bạn có thể xóa thủ công thư mục `converted_tmp` sau khi chuyển đổi hoàn tất để giải phóng dung lượng.
+Có thể xóa thư mục `converted_tmp` sau khi chuyển đổi để giải phóng dung lượng.
